@@ -1,10 +1,10 @@
 import javax.swing.*;
 
-public class SubPage extends JFrame {
+public class SubPageUser extends JFrame {
 
     private JButton backButton;
 
-    public SubPage() {
+    public SubPageUser() {
         super();
         this.setLayout(null);
         this.setTitle("SubPage");
