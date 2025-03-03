@@ -1,3 +1,4 @@
+package UserPages;
 import javax.swing.*;
 
 public class SubPageUser extends JFrame {
