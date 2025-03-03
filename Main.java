@@ -3,11 +3,14 @@ import javax.swing.*;
 public class Main {
 
     public static void main(String[] args) {
-        SubPage frame = new SubPage();
+        SubPageUser frame = new SubPageUser();
         frame.setVisible(true);
         JButton backButton = frame.getBackButton();
         backButton.addActionListener(e -> {
             System.out.println("Back button clicked");
         });
+
+        UserHome home = new UserHome();
+        home.setVisible(true);
     }
 }
