@@ -3,13 +3,14 @@ package AdminPackage;
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import static java.awt.Color.white;
 
-class AdminLandingPage {
+class AdminLandingPage extends DefaultAdmin{
     public AdminLandingPage() {
-        JFrame frame = new DefaultAdmin();
-        frame.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
 
         JButton createPackage = createButton("create package");
         JButton addItems = createButton("add items");
@@ -27,7 +28,7 @@ class AdminLandingPage {
         topPanel.add(logOut,BorderLayout.EAST);
         topPanel.setPreferredSize(new Dimension(800,30));
 
-        frame.add(topPanel,BorderLayout.NORTH);
+        this.add(topPanel,BorderLayout.NORTH);
 
 
         JPanel middlePanel = new JPanel();
@@ -40,18 +41,18 @@ class AdminLandingPage {
         middlePanel.add(createAdmin);
         middlePanel.setBackground(white);
 
+        createPackage.addActionListener(e -> goTo(new CreatePackagePage()));
+        addItems.addActionListener(e -> goTo(new AddItemsPage()));
+        viewAccounts.addActionListener(e -> goTo(new ViewAccountsPage()));
+        //CREATE ADMIN PAGE TO BE MADE
 
 
-        frame.add(middlePanel,BorderLayout.CENTER);
-
-
-
-        frame.setVisible(true);
+        this.add(middlePanel,BorderLayout.CENTER);
 
     }
     public static void main(String[] args) {
         AdminLandingPage a = new AdminLandingPage();
-
+        a.setVisible(true);
     }
 
     public static JButton createButton(String text) {

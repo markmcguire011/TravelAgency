@@ -1,12 +1,12 @@
-package AdminPages;
+package AdminPackage;
+
 import javax.swing.*;
 
 import java.awt.*;
 
-public class ViewAccountsPage {
+public class ViewAccountsPage extends SubPageAdmin{
     public ViewAccountsPage() {
-        JFrame frame = new SubPageAdmin();
-        frame.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
         JPanel panel = new JPanel();
 
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
@@ -47,16 +47,15 @@ public class ViewAccountsPage {
         panel.add(deactivate);
 
 
-        frame.add(panel);
-        frame.setVisible(true);
-
-
-
+        this.add(panel);
+        this.getBackButton().addActionListener(e -> goTo(new AdminLandingPage()));
 
     }
 
     public static void main(String[] args) {
+
         ViewAccountsPage vap = new ViewAccountsPage();
+        vap.setVisible(true);
     }
 
 }

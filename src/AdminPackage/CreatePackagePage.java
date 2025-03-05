@@ -1,14 +1,14 @@
-package AdminPages;
+package AdminPackage;
+import LoginPackage.Main;
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 
-public class CreatePackagePage implements ActionListener {
+public class CreatePackagePage extends SubPageAdmin implements ActionListener {
     public CreatePackagePage() {
-        JFrame frame = new SubPageAdmin();
-        frame.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 
@@ -35,15 +35,19 @@ public class CreatePackagePage implements ActionListener {
         panel.add(flightLabel);
         panel.add(flight);
 
+        Connection connection = Main.getConnection();
+
+
 
         panel.add(Box.createVerticalStrut(15));
         panel.add(create);
+        this.getBackButton().addActionListener(e -> goTo(new AdminLandingPage()));
 
-        frame.add(panel);
-        frame.setVisible(true);
+        this.add(panel);
     }
     public static void main(String[] args) {
         CreatePackagePage c = new CreatePackagePage();
+        c.setVisible(true);
 
     }
     private JComboBox<String> createComboBox() {
