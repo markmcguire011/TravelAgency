@@ -1,4 +1,5 @@
 package UserPages;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -19,21 +20,21 @@ public class UserHome extends JFrame {
         this.add(welcomeMessage);
 
         JButton viewBookingsButton = new JButton("View Bookings");
-        viewBookingsButton.setBounds(180, 180, 200, 50);
+        viewBookingsButton.setBounds(180, 120, 200, 50);
         this.add(viewBookingsButton);
 
-        JButton createBookingButton = new JButton("Create Booking");
-        createBookingButton.setBounds(420, 180, 200, 50);
-        this.add(createBookingButton);
+        JButton createBookingsButton = new JButton("Create Booking");
+        createBookingsButton.setBounds(420, 120, 200, 50);
+        this.add(createBookingsButton);
 
         JLabel bookingHistoryLabel = new JLabel("Upcoming Bookings");
-        bookingHistoryLabel.setBounds(200, 250, 200, 50);
+        bookingHistoryLabel.setBounds(200, 190, 200, 50);
         this.add(bookingHistoryLabel);
 
         // Add panel for booking cards
         JPanel bookingsPanel = new JPanel();
-        bookingsPanel.setLayout(new GridLayout(5, 1, 0, 10)); // 5 rows, 1 column, 10px vertical gap
-        bookingsPanel.setBounds(200, 300, 400, 250);
+        bookingsPanel.setLayout(new GridLayout(5, 1, 0, 20));
+        bookingsPanel.setBounds(200, 230, 400, 280);
 
         // Example of adding booking cards (replace with your actual booking data)
         for (int i = 0; i < 5; i++) {
@@ -42,21 +43,56 @@ public class UserHome extends JFrame {
         }
 
         this.add(bookingsPanel);
+
+        // View Bookings button
+        viewBookingsButton.addActionListener(e -> {
+            new ViewBookings().setVisible(true);
+            this.dispose();
+        });
+
+        // Create Booking button
+        createBookingsButton.addActionListener(e -> {
+            new CreateBooking().setVisible(true);
+            this.dispose();
+        });
+
+        // Logout button
+        logoutButton.addActionListener(e -> {
+            // Add login page navigation here
+            this.dispose();
+        });
     }
 
     private JPanel createBookingCard(String city, String startDate, String endDate) {
         JPanel card = new JPanel();
-        card.setLayout(new BorderLayout(10, 5));
-        card.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        card.setLayout(new BorderLayout(10, 10));
+
+        card.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.GRAY, 1, true),
+                BorderFactory.createEmptyBorder(10, 15, 10, 15)));
         card.setBackground(Color.WHITE);
+
+        // Create a sub-panel for the content using FlowLayout with LEFT alignment
+        JPanel contentPanel = new JPanel(new BorderLayout(10, 0));
+        contentPanel.setBackground(Color.WHITE);
 
         JLabel cityLabel = new JLabel(city);
         cityLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        JLabel dateLabel = new JLabel(startDate + " to " + endDate);
 
-        card.add(cityLabel, BorderLayout.NORTH);
-        card.add(dateLabel, BorderLayout.CENTER);
+        JLabel dateLabel = new JLabel(startDate + " to " + endDate);
+        dateLabel.setFont(new Font("Arial", Font.PLAIN, 12));
+        dateLabel.setHorizontalAlignment(SwingConstants.RIGHT); // Align date to the right
+
+        contentPanel.add(cityLabel, BorderLayout.WEST);
+        contentPanel.add(dateLabel, BorderLayout.EAST);
+
+        card.add(contentPanel, BorderLayout.CENTER);
 
         return card;
+    }
+
+    public static void main(String[] args) {
+        UserHome home = new UserHome();
+        home.setVisible(true);
     }
 }
