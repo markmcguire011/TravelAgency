@@ -1,4 +1,5 @@
-package AdminPages;
+package AdminPackage;
+
 import javax.swing.*;
 
 import java.awt.*;
