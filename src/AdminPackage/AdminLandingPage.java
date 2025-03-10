@@ -8,17 +8,18 @@ import java.awt.event.ActionListener;
 
 import static java.awt.Color.white;
 
-class AdminLandingPage extends DefaultAdmin{
+public class AdminLandingPage extends DefaultAdmin{
     public AdminLandingPage() {
+        this.setTitle("landing page - admin");
         this.setLayout(new BorderLayout());
 
         JButton createPackage = createButton("create package");
         JButton addItems = createButton("add items");
         JButton viewAccounts = createButton("view accounts");
         JButton createAdmin = createButton("create admin");
-        JButton logOut = createButton("Logout");
+        JButton logOut = createButton("logout");
 
-        JLabel greetings = new JLabel("Hi, *NAME*",SwingConstants.CENTER);
+        JLabel greetings = new JLabel("hi, william",SwingConstants.CENTER);
         greetings.setBorder(BorderFactory.createEmptyBorder(0,10,0,0));
         greetings.setMaximumSize(new Dimension(40,30));
 
