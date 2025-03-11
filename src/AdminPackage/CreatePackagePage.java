@@ -20,7 +20,7 @@ public class CreatePackagePage extends SubPageAdmin{
             if(fid == -1) {
                 return "...";
             }
-            return String.format("id %d - %s - $%.2f",fid,airline,price);
+            return String.format("%s - $%.2f",airline,price);
         }
     }
     class HotelDisplay{
@@ -37,7 +37,7 @@ public class CreatePackagePage extends SubPageAdmin{
             if(hid == -1) {
                 return "...";
             }
-            return String.format("id %d - %s - $%.2f",hid,name,price);
+            return String.format("%s - $%.2f",name,price);
         }
     }
     public CreatePackagePage() {
@@ -121,7 +121,7 @@ public class CreatePackagePage extends SubPageAdmin{
 
                 if(!originCity.equals("...") && !destinationCity.equals("...")) {
                     try {
-                        String query = "SELECT DISTINCT fid,airline,price FROM Flight WHERE originCity = ? AND destinationCity = ?";
+                        String query = "SELECT DISTINCT fid,airline,fPrice FROM Flight WHERE originCity = ? AND destinationCity = ?";
                         PreparedStatement statement = Main.getConnection().prepareStatement(query);
                         statement.setString(1,originCity);
                         statement.setString(2,destinationCity);
@@ -132,7 +132,7 @@ public class CreatePackagePage extends SubPageAdmin{
                             Double price = rs.getDouble(3);
                             flightComboBox.addItem(new FlightDisplay(fid,airlineName,price));
                         }
-                        String query2 = "SELECT DISTINCT hid,hotelName,cost FROM Hotel WHERE city = ?;";
+                        String query2 = "SELECT DISTINCT hid,hotelName,hPrice FROM Hotel WHERE city = ?;";
                         statement = Main.getConnection().prepareStatement(query2);
                         statement.setString(1,destinationCity);
                         rs = statement.executeQuery();
@@ -159,7 +159,7 @@ public class CreatePackagePage extends SubPageAdmin{
             String destinationCity = destinationCityComboBox.getSelectedItem().toString();
             if(!originCity.equals("...") && !destinationCity.equals("...") && hid != -1 && fid != -1) {
                 Connection conn = Main.getConnection();
-                String query = String.format("INSERT INTO Package(hotelID,flight,city,price) VALUES (?,?,?,?);");
+                String query = String.format("INSERT INTO Package(hid,fid,city,price) VALUES (?,?,?,?);");
                 PreparedStatement statement2 = null;
                 try {
                     statement2 = conn.prepareStatement(query);
@@ -177,10 +177,6 @@ public class CreatePackagePage extends SubPageAdmin{
             else {
                 errorMessage.setText("please make sure all fields are selected.");
             }
-
-
-            System.out.printf("hid: %d fid: %d price: %.2f\n",hotelDisplay.hid,flightDisplay.fid,hotelDisplay.price + flightDisplay.price);
-
         });
 
         panel.add(create);

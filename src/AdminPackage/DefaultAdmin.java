@@ -6,7 +6,7 @@ public class DefaultAdmin extends JFrame {
 
     public DefaultAdmin() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 400);
+        setSize(400, 400);
         setResizable(false);
     }
     public void goTo(JFrame frame) {

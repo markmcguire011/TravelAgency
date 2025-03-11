@@ -45,6 +45,7 @@ public class AdminLandingPage extends DefaultAdmin{
         createPackage.addActionListener(e -> goTo(new CreatePackagePage()));
         addItems.addActionListener(e -> goTo(new AddItemsPage()));
         viewAccounts.addActionListener(e -> goTo(new ViewAccountsPage()));
+        createAdmin.addActionListener(e-> goTo(new CreateAdminPage()));
         //CREATE ADMIN PAGE TO BE MADE
 
 

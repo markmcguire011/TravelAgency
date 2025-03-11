@@ -22,9 +22,9 @@ public class AddItemsPage extends SubPageAdmin{
         JPanel topBar = new JPanel();
         topBar.add(backButton);
         topBar.setLayout(new BorderLayout());
-
+        backButton.setAlignmentX(Component.LEFT_ALIGNMENT);
         backButton.setMaximumSize(new Dimension(70,35));
-        topBar.setMaximumSize(new Dimension(300,50));
+        topBar.setMaximumSize(new Dimension(400,50));
         this.add(topBar);
 
         JPanel panel = new JPanel();
@@ -135,7 +135,7 @@ public class AddItemsPage extends SubPageAdmin{
         originCityComboBox.addItem("...");
         destinationCityComboBox.addItem("...");
         while(rs.next()) {
-            String cityName = rs.getString(1);
+            String cityName = rs.getString("cityName");
             originCityComboBox.addItem(cityName);
             destinationCityComboBox.addItem(cityName);
         }
@@ -143,7 +143,7 @@ public class AddItemsPage extends SubPageAdmin{
         rs = statement.executeQuery("SELECT airlineName FROM Airline ORDER BY airlineName ASC");
         airlineComboBox.addItem("...");
         while(rs.next()) {
-            String airlineName= rs.getString(1);
+            String airlineName= rs.getString("airlineName");
             airlineComboBox.addItem(airlineName);
         }
 
@@ -273,7 +273,7 @@ public class AddItemsPage extends SubPageAdmin{
         ResultSet rs = statement.executeQuery("SELECT cityName FROM City ORDER BY cityName ASC");
         locationCombo.addItem("...");
         while(rs.next()) {
-            String cityName = rs.getString(1);
+            String cityName = rs.getString("cityName");
             locationCombo.addItem(cityName);
         }
 
