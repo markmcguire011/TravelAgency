@@ -15,7 +15,8 @@ public class PackageDAO {
         try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(query)) {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                packages.add(new Package(rs.getInt("pid"), rs.getInt("hotelID"), rs.getInt("flight"), rs.getString("city"), rs.getDouble("price")));
+                packages.add(new Package(rs.getInt("pid"), rs.getInt("hid"), rs.getInt("fid"), rs.getString("city"),
+                        rs.getDouble("price")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -29,7 +30,8 @@ public class PackageDAO {
             pstmt.setInt(1, pid);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return new Package(rs.getInt("pid"), rs.getInt("hotelID"), rs.getInt("flight"), rs.getString("city"), rs.getDouble("price"));
+                return new Package(rs.getInt("pid"), rs.getInt("hid"), rs.getInt("fid"), rs.getString("city"),
+                        rs.getDouble("price"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

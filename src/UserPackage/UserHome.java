@@ -126,7 +126,7 @@ public class UserHome extends JFrame {
     }
 
     public static void main(String[] args) {
-        UserHome home = new UserHome(new User("aankunding4681", "Adolph", "Ankunding", "QCEI@CEDapAAII^", false));
+        UserHome home = new UserHome(new User("aanderson2803", "Alonzo", "Anderson", "#br1*^yURYkBhY&", false, true));
         home.setVisible(true);
     }
 }

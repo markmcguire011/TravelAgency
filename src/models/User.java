@@ -6,7 +6,7 @@ public class User {
     private String lastName;
     private String userPassword;
     private boolean isAdmin;
-
+    private boolean isActive;
     // Default constructor
     public User() {
         this.userName = "user1";
@@ -14,14 +14,16 @@ public class User {
         this.lastName = "Doe";
         this.userPassword = "password";
         this.isAdmin = false;
+        this.isActive = true;
     }
 
-    public User(String userName, String firstName, String lastName, String userPassword, boolean isAdmin) {
+    public User(String userName, String firstName, String lastName, String userPassword, boolean isAdmin, boolean isActive) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userPassword = userPassword;
         this.isAdmin = isAdmin;
+        this.isActive = isActive;
     }
 
     // Getters
@@ -43,5 +45,9 @@ public class User {
 
     public boolean isAdmin() {
         return isAdmin;
+    }
+
+    public boolean isActive() {
+        return isActive;
     }
 }
