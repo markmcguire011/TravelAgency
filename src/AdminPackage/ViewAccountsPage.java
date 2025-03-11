@@ -219,8 +219,8 @@ public class ViewAccountsPage extends SubPageAdmin{
                 String lastName = rs.getString("lastName");
                 String firstName = rs.getString("firstName");
                 String userName = rs.getString("userName");
-                //boolean isActive = rs.getString("isActive");
-                Object[] row = new Object[]{lastName,firstName,userName,true};
+                boolean isActive = rs.getBoolean("isActive");
+                Object[] row = new Object[]{lastName,firstName,userName,isActive};
                 model.addRow(row);
             }
         }
