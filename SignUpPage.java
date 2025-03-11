@@ -102,7 +102,7 @@ public class SignUpPage extends JFrame implements ActionListener {
                         ps2.setString(4, password1);
                         ps2.executeUpdate();
                         messageLabel.setText("Success!");
-                        int delay = 5000; // Delay in milliseconds
+                        int delay = 1500; // Delay in milliseconds
                         ActionListener taskPerformer = evt -> {
                             LandingPage landingPage = new LandingPage(connect);
                             goTo(landingPage);
