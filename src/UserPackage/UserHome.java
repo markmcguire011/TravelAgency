@@ -7,12 +7,13 @@ import src.models.Booking;
 import src.utils.BookingDAO;
 import src.models.Package;
 import src.utils.PackageDAO;
-
+import src.models.User;
+import java.util.Comparator;
 public class UserHome extends JFrame {
-    private String username;
+    private User user;
 
-    public UserHome(String username) {
-        this.username = username;
+    public UserHome(User user) {
+        this.user = user;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
@@ -23,7 +24,7 @@ public class UserHome extends JFrame {
         logoutButton.setBounds(690, 10, 100, 30);
         this.add(logoutButton);
 
-        JLabel welcomeMessage = new JLabel("Welcome, " + username);
+        JLabel welcomeMessage = new JLabel("Welcome, " + user.getFirstName());
         welcomeMessage.setBounds(20, 0, 200, 50);
         this.add(welcomeMessage);
 
@@ -44,13 +45,13 @@ public class UserHome extends JFrame {
 
         // View Bookings button
         viewBookingsButton.addActionListener(e -> {
-            new ViewBookings(username).setVisible(true);
+            new ViewBookings(user).setVisible(true);
             this.dispose();
         });
 
         // Create Booking button
         createBookingsButton.addActionListener(e -> {
-            new CreateBooking(username).setVisible(true);
+            new CreateBooking(user).setVisible(true);
             this.dispose();
         });
 
@@ -63,7 +64,7 @@ public class UserHome extends JFrame {
 
     private void loadBookingCards() {
         BookingDAO bookingDAO = new BookingDAO();
-        List<Booking> bookings = bookingDAO.getCurrentBookings(username);
+        List<Booking> bookings = bookingDAO.getCurrentBookings(user.getUserName());
 
         JPanel bookingsPanel = new JPanel();
         bookingsPanel.setBounds(200, 230, 400, 280);
@@ -76,7 +77,13 @@ public class UserHome extends JFrame {
             bookingsPanel.add(noBookingsLabel, BorderLayout.CENTER);
         } else {
             bookingsPanel.setLayout(new GridLayout(Math.min(bookings.size(), 5), 1, 0, 20));
-            for (Booking booking : bookings) {
+
+            // Sort bookings by fromDate
+            bookings.sort(Comparator.comparing(Booking::getFromDate));
+            int limit = Math.min(bookings.size(), 5);
+
+            for (int i = 0; i < limit; i++) {
+                Booking booking = bookings.get(i);
                 PackageDAO packageDAO = new PackageDAO();
                 Package pkg = packageDAO.getPackageById(booking.getPackageID());
                 JPanel card = createBookingCard(
@@ -119,7 +126,7 @@ public class UserHome extends JFrame {
     }
 
     public static void main(String[] args) {
-        UserHome home = new UserHome("user1");
+        UserHome home = new UserHome(new User("aankunding4681", "Adolph", "Ankunding", "QCEI@CEDapAAII^", false));
         home.setVisible(true);
     }
 }

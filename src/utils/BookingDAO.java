@@ -19,7 +19,8 @@ public class BookingDAO {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                Booking booking = new Booking(rs.getInt("bid"), rs.getString("username"), rs.getInt("packageID"), rs.getDate("fromDate"), rs.getDate("toDate"));
+                Booking booking = new Booking(rs.getInt("bid"), rs.getString("username"), rs.getInt("packageID"),
+                        rs.getDate("fromDate"), rs.getDate("toDate"));
                 bookings.add(booking);
             }
         } catch (SQLException e) {
@@ -30,22 +31,24 @@ public class BookingDAO {
 
     public List<Booking> getCurrentBookings(String username) {
         List<Booking> bookings = new ArrayList<>();
-        String query = "SELECT * FROM Booking WHERE toDate >= CURRENT_DATE() AND username = ?;";
+        String query = "SELECT * FROM Booking WHERE toDate >= CURRENT_DATE() AND username = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(query)) {
-
+        try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(query)) {
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                Booking booking = new Booking(rs.getInt("bid"), rs.getString("username"), rs.getInt("packageID"), rs.getDate("fromDate"), rs.getDate("toDate"));
+                Booking booking = new Booking(
+                        rs.getInt("bid"),
+                        rs.getString("username"),
+                        rs.getInt("packageID"),
+                        rs.getDate("fromDate"),
+                        rs.getDate("toDate"));
                 bookings.add(booking);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return bookings;
     }
 
@@ -53,13 +56,14 @@ public class BookingDAO {
         List<Booking> bookings = new ArrayList<>();
         String query = "SELECT * FROM Booking WHERE toDate < CURRENT_DATE() AND username = ?";
 
-        try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(query)){
+        try (PreparedStatement pstmt = DatabaseConnection.getConnection().prepareStatement(query)) {
 
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                Booking booking = new Booking(rs.getInt("bid"), rs.getString("username"), rs.getInt("packageID"), rs.getDate("fromDate"), rs.getDate("toDate"));
+                Booking booking = new Booking(rs.getInt("bid"), rs.getString("username"), rs.getInt("packageID"),
+                        rs.getDate("fromDate"), rs.getDate("toDate"));
                 bookings.add(booking);
             }
         } catch (SQLException e) {
@@ -69,18 +73,16 @@ public class BookingDAO {
         return bookings;
     }
 
-
-
-    public int createBooking(Booking booking) {
-        String query = "INSERT INTO Booking (username, packageID, fromDate, toDate) VALUES (?, ?, ?, ?);";
+    public int createBooking(String username, int packageID, Date fromDate, Date toDate) {
+        String query = "INSERT INTO Booking (username, packageID, fromDate, toDate) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(query)) {
+                PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
-            pstmt.setString(1, booking.getUsername());
-            pstmt.setInt(2, booking.getPackageID());
-            pstmt.setDate(3, new java.sql.Date(booking.getFromDate().getTime()));
-            pstmt.setDate(4, new java.sql.Date(booking.getToDate().getTime()));
+            pstmt.setString(1, username);
+            pstmt.setInt(2, packageID);
+            pstmt.setDate(3, new java.sql.Date(fromDate.getTime()));
+            pstmt.setDate(4, new java.sql.Date(toDate.getTime()));
 
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
@@ -88,6 +90,7 @@ public class BookingDAO {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
+            System.out.println("Error creating booking");
             e.printStackTrace();
         }
         return -1;

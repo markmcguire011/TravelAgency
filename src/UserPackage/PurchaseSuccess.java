@@ -8,12 +8,13 @@ import java.awt.event.MouseAdapter;
 import javax.swing.border.AbstractBorder;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import src.models.User;
 
 public class PurchaseSuccess extends JFrame {
-    private String username;
+    private User user;
 
-    public PurchaseSuccess(int transactionId, String username) {
-        this.username = username;
+    public PurchaseSuccess(int transactionId, User user) {
+        this.user = user;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
@@ -33,7 +34,7 @@ public class PurchaseSuccess extends JFrame {
         this.add(idLabel);
 
         // Thank you message
-        JLabel thankYouLabel = new JLabel("Thank you, John Doe!");
+        JLabel thankYouLabel = new JLabel("Thank you, " + user.getFirstName() + "!");
         thankYouLabel.setFont(new Font("Arial", Font.BOLD, 16));
         thankYouLabel.setBounds(250, 250, 300, 30);
         thankYouLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -79,7 +80,7 @@ public class PurchaseSuccess extends JFrame {
         });
 
         returnButton.addActionListener(e -> {
-            new UserHome(username).setVisible(true);
+            new UserHome(user).setVisible(true);
             this.dispose();
         });
 
@@ -87,7 +88,7 @@ public class PurchaseSuccess extends JFrame {
     }
 
     public static void main(String[] args) {
-        PurchaseSuccess purchaseSuccess = new PurchaseSuccess(0, "user1"); // Demo purposes only
+        PurchaseSuccess purchaseSuccess = new PurchaseSuccess(1, new User()); // Demo purposes only
         purchaseSuccess.setVisible(true);
     }
 }

@@ -18,6 +18,7 @@ import src.models.Booking;
 import src.utils.BookingDAO;
 import src.models.Transaction;
 import src.utils.TransactionDAO;
+import src.models.User;
 
 public class Purchase extends JFrame {
     private JButton purchaseButton;
@@ -26,13 +27,14 @@ public class Purchase extends JFrame {
     private List<Package> selectedPackages;
     private String fromDate;
     private String toDate;
-    private String username;
+    private User user;
     private double totalPrice;
 
-    public Purchase(List<Package> selectedPackages, String fromDate, String toDate, String username) {
+    public Purchase(List<Package> selectedPackages, String fromDate, String toDate, User user) {
         this.selectedPackages = selectedPackages;
         this.fromDate = fromDate;
         this.toDate = toDate;
+        this.user = user;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
@@ -45,7 +47,7 @@ public class Purchase extends JFrame {
         backButton.setFocusPainted(false);
         backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         backButton.addActionListener(e -> {
-            new CreateBooking(username).setVisible(true);
+            new CreateBooking(user).setVisible(true);
             this.dispose();
         });
         this.add(backButton);
@@ -152,8 +154,13 @@ public class Purchase extends JFrame {
 
             try {
                 // Create booking
-                int bookingID = bookingDAO.createBooking(new Booking(0, username, selectedPackages.get(0).getPid(),
-                        java.sql.Date.valueOf(fromDate), java.sql.Date.valueOf(toDate)));
+                System.out.println("Creating booking...");
+                System.out.println(selectedPackages.get(0).getPid());
+                int bookingID = bookingDAO.createBooking(user.getUserName(), selectedPackages.get(0).getPid(),
+                        java.sql.Date.valueOf(convertDateFormat(fromDate)),
+                        java.sql.Date.valueOf(convertDateFormat(toDate)));
+
+                System.out.println("Booking ID: " + bookingID);
 
                 Transaction transaction = transactionDAO.createTransaction(
                         bookingID,
@@ -161,7 +168,7 @@ public class Purchase extends JFrame {
                         totalPrice);
 
                 if (transaction != null) {
-                    new PurchaseSuccess(transaction.getTid(), username).setVisible(true);
+                    new PurchaseSuccess(transaction.getTid(), user).setVisible(true);
                     this.dispose();
                 }
 
@@ -278,8 +285,14 @@ public class Purchase extends JFrame {
         purchaseButton.setBackground(allValid ? new Color(119, 209, 142) : Color.GRAY);
     }
 
+    private String convertDateFormat(String date) {
+        // Convert from MM/DD/YY to YYYY-MM-DD
+        String[] parts = date.split("/");
+        return "20" + parts[2] + "-" + parts[0] + "-" + parts[1];
+    }
+
     public static void main(String[] args) {
-        Purchase purchase = new Purchase(new ArrayList<Package>(), "Apr 1", "Apr 5", "user1");
+        Purchase purchase = new Purchase(new ArrayList<Package>(), "Apr 1", "Apr 5", new User());
         purchase.setVisible(true);
     }
 }

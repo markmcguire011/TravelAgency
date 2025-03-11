@@ -17,6 +17,7 @@ public class Booking {
         this.toDate = toDate;
     }
 
+    // Getters
     public int getBid() {
         return bid;
     }
