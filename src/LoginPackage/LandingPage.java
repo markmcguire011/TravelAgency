@@ -23,7 +23,7 @@ public class LandingPage extends JFrame implements ActionListener {
         JPanel panel = new JPanel(new GridLayout(4, 1, 5, 5));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        titleLabel = new JLabel("Welcome to XYZ Travel Agency!");
+        titleLabel = new JLabel("Welcome to Golden Compass Travel!");
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         loginButton = new JButton("Login");
         loginButton.addActionListener(this);
