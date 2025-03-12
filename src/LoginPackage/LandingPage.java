@@ -54,4 +54,9 @@ public class LandingPage extends JFrame implements ActionListener {
             goTo(signUpPage);
         }
     }
+
+    public static void main(String[] args) {
+        LandingPage landingPage = new LandingPage(DatabaseConnection.getConnection());
+        landingPage.setVisible(true);
+    }
 }

@@ -1,7 +1,13 @@
 package AdminPackage;
 
+import LoginPackage.LandingPage;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import utils.DatabaseConnection;
 
 public class CreateAdminPage extends SubPageAdmin{
     public CreateAdminPage() {
@@ -21,17 +27,17 @@ public class CreateAdminPage extends SubPageAdmin{
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
 
-        JLabel firstNameLabel = createLabel("First name:");
+        JLabel firstNameLabel = createLabel("first name:");
         JTextField firstNameField = createTextField();
-        JLabel lastNameLabel = createLabel("Last name:");
+        JLabel lastNameLabel = createLabel("last name:");
         JTextField lastNameField = createTextField();
-        JLabel usernameLabel = createLabel("Username:");
+        JLabel usernameLabel = createLabel("username:");
         JTextField usernameField = createTextField();
-        JLabel passwordLabel1 = createLabel("Password:");
-        JTextField passwordField1 = createPasswordField();
-        JLabel passwordLabel2 = createLabel("Confirm password:");
-        JTextField passwordField2 = createPasswordField();
-        JButton signUpButton = new JButton("Sign up");
+        JLabel passwordLabel1 = createLabel("password:");
+        JPasswordField passwordField1 = createPasswordField();
+        JLabel passwordLabel2 = createLabel("confirm password:");
+        JPasswordField passwordField2 = createPasswordField();
+        JButton signUpButton = new JButton("sign up");
         signUpButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel messageLabel = createLabel("");
@@ -52,7 +58,46 @@ public class CreateAdminPage extends SubPageAdmin{
 
         this.add(panel);
 
+        signUpButton.addActionListener(ae->{
+                String firstName = firstNameField.getText();
+                String lastName = lastNameField.getText();
+                String username = usernameField.getText();
+                String password1 = new String(passwordField1.getPassword());
+                String password2 = new String(passwordField2.getPassword());
 
+                if (firstName.isEmpty() || lastName.isEmpty()){
+                    messageLabel.setText("name cannot be empty!");
+                } else if (username.isEmpty()){
+                    messageLabel.setText("username cannot be empty!");
+                } else if (!password1.equals(password2)){
+                    messageLabel.setText("passwords don't match!");
+                } else {
+                    try{
+                        String selectUser = "SELECT * FROM Users WHERE userName = ?";
+                        PreparedStatement ps1 = DatabaseConnection.getConnection().prepareStatement(selectUser);
+                        ps1.setString(1, username);
+                        ResultSet rs = ps1.executeQuery();
+                        if(!rs.next()){
+                            String userString = "INSERT INTO Users (userName, firstName, lastName, userPassword, isAdmin) " +
+                                    "VALUES (?, ?, ?, ?, ?);";
+                            PreparedStatement ps2 = DatabaseConnection.getConnection().prepareStatement(userString);
+                            ps2.setString(1, username);
+                            ps2.setString(2, firstName);
+                            ps2.setString(3, lastName);
+                            ps2.setString(4, password1);
+                            ps2.setBoolean(5, true);    
+                            ps2.executeUpdate();
+                            messageLabel.setText("success!");
+                        } else {
+                            messageLabel.setText("username taken!");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                passwordField1.setText("");
+                passwordField2.setText("");
+            });
 
 
         backButton.addActionListener(e-> goTo(new AdminLandingPage()));
