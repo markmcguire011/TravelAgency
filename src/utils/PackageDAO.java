@@ -1,4 +1,4 @@
-package src.utils;
+package utils;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.models.Package;
+import models.Package;
 
 public class PackageDAO {
     public List<Package> getAllPackages() {

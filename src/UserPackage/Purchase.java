@@ -1,4 +1,4 @@
-package src.UserPackage;
+package UserPackage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,12 +13,12 @@ import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.models.Package;
-import src.models.Booking;
-import src.utils.BookingDAO;
-import src.models.Transaction;
-import src.utils.TransactionDAO;
-import src.models.User;
+import models.Package;
+import models.Booking;
+import utils.BookingDAO;
+import models.Transaction;
+import utils.TransactionDAO;
+import models.User;
 
 public class Purchase extends JFrame {
     private JButton purchaseButton;

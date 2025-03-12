@@ -1,6 +1,6 @@
-package src.utils;
+package utils;
 
-import src.models.Transaction;
+import models.Transaction;
 import java.sql.*;
 
 public class TransactionDAO {

@@ -1,4 +1,4 @@
-package src.UserPackage;
+package UserPackage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +8,7 @@ import java.awt.event.MouseAdapter;
 import javax.swing.border.AbstractBorder;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import src.models.User;
+import models.User;
 
 public class PurchaseSuccess extends JFrame {
     private User user;

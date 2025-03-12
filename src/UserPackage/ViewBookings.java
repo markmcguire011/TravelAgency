@@ -1,4 +1,4 @@
-package src.UserPackage;
+package UserPackage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,12 +9,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import src.models.Booking;
-import src.utils.BookingDAO;
-import src.models.User;
-import src.utils.PackageDAO;
-import src.models.Package;
-import src.utils.DatabaseConnection;
+import models.Booking;
+import utils.BookingDAO;
+import models.User;
+import utils.PackageDAO;
+import models.Package;
+import utils.DatabaseConnection;
 
 public class ViewBookings extends JFrame {
     private JPanel bookingsPanel;

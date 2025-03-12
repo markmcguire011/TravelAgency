@@ -1,6 +1,6 @@
-package src.utils;
+package utils;
 
-import src.models.Booking;
+import models.Booking;
 
 import java.sql.*;
 import java.util.ArrayList;

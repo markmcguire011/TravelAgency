@@ -1,14 +1,16 @@
-package src.UserPackage;
+package UserPackage;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
-import src.models.Booking;
-import src.utils.BookingDAO;
-import src.models.Package;
-import src.utils.PackageDAO;
-import src.models.User;
+import models.Booking;
+import utils.BookingDAO;
+import models.Package;
+import utils.PackageDAO;
+import models.User;
 import java.util.Comparator;
+import utils.DatabaseConnection;
+import LoginPackage.LandingPage;
 public class UserHome extends JFrame {
     private User user;
 
@@ -57,7 +59,7 @@ public class UserHome extends JFrame {
 
         // Logout button
         logoutButton.addActionListener(e -> {
-            // Add login page navigation here
+            new LandingPage(DatabaseConnection.getConnection()).setVisible(true);
             this.dispose();
         });
     }

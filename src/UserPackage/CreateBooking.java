@@ -1,4 +1,4 @@
-package src.UserPackage;
+package UserPackage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,10 +11,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import src.models.Package;
-import src.utils.PackageDAO;
-import src.models.User;
-import src.utils.DatabaseConnection;
+import models.Package;
+import utils.PackageDAO;
+import models.User;
+import utils.DatabaseConnection;
+import UserPackage.UserHome;
 
 public class CreateBooking extends JFrame {
     private User user;

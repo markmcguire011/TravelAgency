@@ -1,4 +1,4 @@
-package src.models;
+package models;
 
 public class Package {
     private int pid;
