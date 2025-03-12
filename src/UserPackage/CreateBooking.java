@@ -286,7 +286,7 @@ public class CreateBooking extends JFrame {
                 pstmt.setInt(1, pkg.getHotelID());
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next()) {
-                    hotelInfo = String.format("Hotel: %s%nLocation: %s%nCost per night: $%.2f",
+                    hotelInfo = String.format("Hotel: %s%nLocation: %s%nCost: $%.2f",
                             rs.getString("hotelName"),
                             rs.getString("city"),
                             rs.getDouble("hPrice"));
