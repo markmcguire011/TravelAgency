@@ -168,11 +168,13 @@ public class CreatePackagePage extends SubPageAdmin{
                     statement2.setString(3,destinationCity);
                     statement2.setDouble(4,hotelDisplay.price + flightDisplay.price);
                     statement2.executeUpdate();
+                    String successMessage = String.format("package successfully created!");
+                    errorMessage.setText(successMessage);
                 } catch (SQLException ex) {
+                    String successMessage = String.format("package creation unsuccessful");
+                    errorMessage.setText(successMessage);
                     throw new RuntimeException(ex);
                 }
-                String successMessage = String.format("package successfully created!");
-                errorMessage.setText(successMessage);
             }
             else {
                 errorMessage.setText("please make sure all fields are selected.");
