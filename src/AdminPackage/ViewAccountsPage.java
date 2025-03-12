@@ -114,7 +114,7 @@ public class ViewAccountsPage extends SubPageAdmin{
             String lastNameInput = lastNameTextBox.getText();
             String query;
             if(!firstNameInput.isEmpty() && !lastNameInput.isEmpty()) {
-                query = String.format("SELECT * FROM Users WHERE isAdmin = 0 AND firstName LIKE \"%%%s%%\" AND lastName LIKE \"%%%%s%%\" ORDER BY lastName ASC;",firstNameInput,lastNameInput);
+                query = String.format("SELECT * FROM Users WHERE isAdmin = 0 AND firstName LIKE \"%%%s%%\" AND lastName LIKE \"%%%s%%\" ORDER BY lastName ASC;",firstNameInput,lastNameInput);
             }
             else if(!firstNameInput.isEmpty()) {
                 query = String.format("SELECT * FROM Users WHERE isAdmin = 0 AND firstName LIKE \"%%%s%%\" ORDER BY lastName ASC;",firstNameInput);
